@@ -1,3 +1,84 @@
 # File Transfer for Blackberry Webworks
 
-This is an Javascript Extension for Blackberry Webworks projects to allow you to download files to the local file system.
+This is an Javascript Extension for Blackberry Webworks projects that allows you to download files within your Blackberry Webworks widget.
+
+## How to install
+
+1) Download the file https://github.com/downloads/dbotelho/blackberry.io.filetransfer/blackberry.io.filetransfer.jar and add it to your "ext" folder in your Webworks project;
+2) Then go to your "config.xml" file and add the following lines:
+
+  <feature id="blackberry.io.filetransfer" required="false" version="1.0.0"/>
+...
+  <access subdomains="false" uri="file:///"/>
+  
+## API
+
+### Method:
+
+    blackberry.io.filetransfer.download(arguments);
+    
+### Arguments (Array):
+
+- url (required): Is the download url. ex: "https://www.google.com/images/srpr/logo3w.png"
+- dest (required): Is the local file location. ex:"file:///store/home/user/logo/logo.png"
+- type (optional): Can be 'POST' or 'GET' (default: 'GET')
+- success (optional): Is a Javascript function that is called after the download is complete
+- error(optional): Is a Javascript function that is called if the download fails for some reason
+- headers (optional): For this version the headers only allows you to set the "Authorization" and/or "Content-Type", but if you need more support please let me know.
+
+## Example 1: Download the google logo and notify when it's done
+
+<script language="javascript" type="text/javascript">
+
+	// Here whe need to create the local folder, if it doesn't exist already
+	if (!blackberry.io.dir.exists("file:///store/home/user/logos/")) {
+		blackberry.io.dir
+				.createNewDir("file:///store/home/user/logos/");
+	}
+	
+	// Download the file
+	blackberry.io.filetransfer.download({
+		url: "https://www.google.com/images/srpr/logo3w.png", 	// the image url
+		type : 'GET',											// explicitly setting method type to 'GET'
+		dest: "file:///store/home/user/logos/GoogleLogo.png",	// the local file
+		success : function(data){								// The function called after the file is downloaded
+			alert('success');
+		},
+		error : function(data){										// The function called if something fails
+			alert('error:'+data);
+		}
+	})
+</script>
+
+## Example 2: Download the google logo with HTTP Basic Authentication
+
+<script language="javascript" type="text/javascript">
+	function make_base_auth(user, password) {
+	  var tok = user + ':' + pass;
+	  var hash = Base64.encode(tok);
+	  return "Basic " + hash;
+	}
+
+	// Here whe need to create the local folder, if it doesn't exist already
+	if (!blackberry.io.dir.exists("file:///store/home/user/logos/")) {
+		blackberry.io.dir
+				.createNewDir("file:///store/home/user/logos/");
+	}
+	
+	// Download the file
+	blackberry.io.filetransfer.download({
+		url: "https://www.google.com/images/srpr/logo3w.png", 	// the image url
+		type : 'GET',											// explicitly setting method type to 'GET'
+		headers:{
+			Authorization: make_base_auth("my_username","my_password"),
+			"Content-Type": "application/x-www-form-urlencoded"
+		},
+		dest: "file:///store/home/user/logos/GoogleLogo.png",	// the local file
+		success : function(data){								// The function called after the file is downloaded
+			alert('success');
+		},
+		error : function(data){										// The function called if something fails
+			alert('error:'+data);
+		}
+	})
+</script>
