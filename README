@@ -4,13 +4,14 @@ This is an Javascript Extension for Blackberry Webworks projects that allows you
 
 ## How to install
 
-1) Download the file https://github.com/downloads/dbotelho/blackberry.io.filetransfer/blackberry.io.filetransfer.jar and add it to your "ext" folder in your Webworks project;
-2) Then go to your "config.xml" file and add the following lines:
+1. Download the file https://github.com/downloads/dbotelho/blackberry.io.filetransfer/blackberry.io.filetransfer.jar and add it to your "ext" folder in your Webworks project;
+2. Then go to your "config.xml" file and add the following lines:
 
-  <feature id="blackberry.io.filetransfer" required="false" version="1.0.0"/>
-...
-  <access subdomains="false" uri="file:///"/>
-  
+`` <feature id="blackberry.io.filetransfer" required="false" version="1.0.0"/>``
+
+``<access subdomains="false" uri="file:///"/>``
+    
+
 ## API
 
 ### Method:
@@ -28,7 +29,7 @@ This is an Javascript Extension for Blackberry Webworks projects that allows you
 
 ## Example 1: Download the google logo and notify when it's done
 
-<script language="javascript" type="text/javascript">
+    <script language="javascript" type="text/javascript">
 
 	// Here whe need to create the local folder, if it doesn't exist already
 	if (!blackberry.io.dir.exists("file:///store/home/user/logos/")) {
@@ -48,11 +49,11 @@ This is an Javascript Extension for Blackberry Webworks projects that allows you
 			alert('error:'+data);
 		}
 	})
-</script>
+    </script>
 
 ## Example 2: Download the google logo with HTTP Basic Authentication
 
-<script language="javascript" type="text/javascript">
+    <script language="javascript" type="text/javascript">
 	function make_base_auth(user, password) {
 	  var tok = user + ':' + pass;
 	  var hash = Base64.encode(tok);
@@ -81,4 +82,4 @@ This is an Javascript Extension for Blackberry Webworks projects that allows you
 			alert('error:'+data);
 		}
 	})
-</script>
+    </script>
