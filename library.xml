@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<library>
+    <extension>
+        <entryClass>blackberry.io.AExt</entryClass>
+    </extension>
+    <features>
+        <feature id="blackberry.io.filetransfer" version="1.0.0" >File Transfer API for Blackberry Webworks</feature>
+    </features>
+</library>
