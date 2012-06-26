@@ -55,7 +55,7 @@ public class FileDownloader implements Runnable {
 	}
 
 	public void setMethodType(String method_type) {
-		this.method_type = ((method_type != null) && (method_type.toUpperCase() == HttpConnection.POST)) ? HttpConnection.POST
+		this.method_type = ((method_type != null) && (method_type.toUpperCase().equals(HttpConnection.POST))) ? HttpConnection.POST
 				: HttpConnection.GET;
 	}
 
