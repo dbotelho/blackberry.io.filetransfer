@@ -11,6 +11,8 @@ import javax.microedition.io.HttpConnection;
 import javax.microedition.io.file.FileConnection;
 
 import net.rim.device.api.io.http.HttpProtocolConstants;
+import net.rim.device.api.system.Branding;
+import net.rim.device.api.system.DeviceInfo;
 
 public class FileDownloader implements Runnable {
 	public static int BLOCK_SIZE = 2048;
@@ -39,9 +41,17 @@ public class FileDownloader implements Runnable {
 		headers.put(HttpProtocolConstants.HEADER_CONTENT_TYPE,
 				"application/x-www-form-urlencoded");
 		headers.put(HttpProtocolConstants.HEADER_USER_AGENT,
-				"BlackBerry Client");
+				getDefaultUserAgent());
 		headers.put(HttpProtocolConstants.HEADER_ACCEPT, "*/*");
 		method_type = HttpConnection.GET;
+	}
+	public String getDefaultUserAgent(){
+		return "BlackBerry" + DeviceInfo.getDeviceName() + "/" +
+        DeviceInfo.getSoftwareVersion() +
+        " Profile/" + System.getProperty("microedition.profiles") +
+        " Configuration/" + System.getProperty(
+        "microedition.configuration") + " VendorID/" + Branding.
+        getVendorId();
 	}
 
 	public void setMethodType(String method_type) {
